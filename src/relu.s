@@ -14,25 +14,28 @@
 # ==============================================================================
 relu:
     # Prologue
+    li t0, 1
+    ble t0, a1, no_exception
+    li a1, 78
+    j exit2
 
+no_exception:
+    add t0, x0, x0 # i = 0
 
 loop_start:
-    
-
-
-
-
-
-
+    lw t1 , 0(a0) # t1 = a[i], 刚开始i = 0
+    bge t1, zero, loop_continue
+    sw x0, 0(a0)  # 将a[i]写回为0
 
 loop_continue:
+    addi a0, a0, 4
+    addi t0, t0, 1
 
-
+    beq t0, a1, loop_end
+    j loop_start
 
 loop_end:
-
+    ret
 
     # Epilogue
 
-    
-	ret

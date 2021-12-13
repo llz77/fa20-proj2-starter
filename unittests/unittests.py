@@ -3,6 +3,14 @@ from framework import AssemblyTest, print_coverage
 
 
 class TestAbs(TestCase):
+
+    def test_minus_one(self):
+        t = AssemblyTest(self, "abs.s")
+        t.input_scalar("a0", -1)
+        t.call("abs")
+        t.check_scalar("a0", 1)
+        t.execute()
+
     def test_zero(self):
         t = AssemblyTest(self, "abs.s")
         # load 0 into register a0
@@ -52,15 +60,20 @@ class TestArgmax(TestCase):
     def test_simple(self):
         t = AssemblyTest(self, "argmax.s")
         # create an array in the data section
-        raise NotImplementedError("TODO")
+        # raise NotImplementedError("TODO")
         # TODO
         # load address of the array into register a0
+        array = t.array([1, 2, -4, 8, 3, 5])
         # TODO
+        t.input_array("a0", array)
+        t.input_scalar("a1", len(array))
         # set a1 to the length of the array
         # TODO
         # call the `argmax` function
+        t.call("argmax")
         # TODO
         # check that the register a0 contains the correct output
+        t.check_scalar("a0", 3)
         # TODO
         # generate the `assembly/TestArgmax_test_simple.s` file and run it through venus
         t.execute()
@@ -74,16 +87,24 @@ class TestDot(TestCase):
     def test_simple(self):
         t = AssemblyTest(self, "dot.s")
         # create arrays in the data section
-        raise NotImplementedError("TODO")
+        # raise NotImplementedError("TODO")
         # TODO
         # load array addresses into argument registers
+        array0 = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        array1 = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
         # TODO
         # load array attributes into argument registers
+        t.input_array("a0", array0)
+        t.input_array("a1", array1)
         # TODO
+        t.input_scalar("a2", 9)
+        t.input_scalar("a3", 1)
+        t.input_scalar("a4", 1)
         # call the `dot` function
         t.call("dot")
         # check the return value
         # TODO
+        t.check_scalar("a0", 285)
         t.execute()
 
     @classmethod
