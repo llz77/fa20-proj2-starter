@@ -338,9 +338,6 @@ class TestWriteMatrix(TestCase):
             t.check_file_output(
                 outfile, "outputs/test_write_matrix/reference.bin")
 
-    def test_simple(self):
-        self.do_write_matrix()
-
     def test_fopen_exception(self):
         self.do_write_matrix(fail='fopen', code=93)
 
@@ -349,6 +346,9 @@ class TestWriteMatrix(TestCase):
 
     def test_fclose_exception(self):
         self.do_write_matrix(fail='fclose', code=95)
+
+    def test_simple(self):
+        self.do_write_matrix()
 
     @classmethod
     def tearDownClass(cls):
